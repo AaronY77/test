@@ -1,52 +1,38 @@
-var btn_red;
-var btn_green;
+var track;var trackIMG;var runnerImg; var runner;var leftEdge;var rightEdge;
+function preload(){
+ trackIMG=loadImage("path.png");
+ runnerIMG=loadAnimation("Runner-1.png","Runner-2.png");
+}
 
-var r = 0;
-var g = 0;
-var b = 0;
+function setup(){
+  createCanvas(400,400);
+  //create sprites here
+  track=createSprite(200);
+  track.addImage(trackIMG);
+  track.velocityY=4;
+  track.scale=1.2;
+  runner=createSprite(200,200);
+  runner.addAnimation("moving",runnerIMG);
+  runner.scale=0.05;
+  rightEdge=createSprite(300);
+  leftEdge=createSprite(100);
+  leftEdge.visible=false;
+  rightEdge.visible=false;
+  
 
-function setup() {
-  createCanvas(400, 400);  
-  btn_green=createButton("green");
-  btn_green.position(100,50);
-  btn_red=createButton("red");
-  btn_red.position(250,50);
- 
+
+
 
 }
-  
 
 function draw() {
-  background("black");
-
-/*if(mousePressed(btn_green)){
-  background("green");
-  
-}
-if(mousePressed(btn_red)){
-  background("red")
-}*/
-btn_red.mousePressed(red_bg);
-btn_green.mousePressed(green_bg);
-drawSprites();
- 
-}
-
-  
-
-function red_bg(){
-  r=255;
-  g=0;
-  b=0;
-  background(r,g,b);
-}
-{
-  function green_bg(){
-    r=0;
-    g=255;
-    b=0;
-    background(r,g,b);
+  background("white");
+  drawSprites();
+  if(track.y>400){
+    track.y=20;
   }
+  runner.x=World.mouseX;
+  runner.collide(leftEdge);
+  runner.collide(rightEdge);
 
 }
-
